@@ -25,6 +25,7 @@ public class TestScript extends ActionScript implements PaintListener {
     public void start() {
         log.info("Script starting!");
         add(new Fight(ctx));
+        // TODO add queries for widgets and Inventory items
     }
 
     public int healthPercent() {

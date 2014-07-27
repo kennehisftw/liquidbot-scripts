@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Kenneth on 7/24/2014.
  */
-public abstract class AbstractQuery<Q extends AbstractQuery, E extends Locatable> {
+public abstract class AbstractQuery<Q extends AbstractQuery, E> {
 
     private final List<E> list = new LinkedList<>();
 

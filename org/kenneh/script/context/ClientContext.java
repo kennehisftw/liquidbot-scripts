@@ -1,10 +1,7 @@
 package org.kenneh.script.context;
 
-import org.kenneh.impl.query.GroundItemQuery;
-import org.kenneh.impl.query.NpcQuery;
-import org.kenneh.impl.query.ObjectQuery;
-import org.kenneh.impl.query.PlayerQuery;
-import org.kenneh.impl.wrappers.Camera;
+import org.kenneh.impl.query.*;
+import org.kenneh.impl.wrappers.*;
 import org.kenneh.script.AbstractScript;
 
 /**
@@ -14,20 +11,34 @@ public class ClientContext {
 
     private final AbstractScript script;
 
+    public final Interaction interact;
+    public final Status status;
+    public final Movement movement;
+    public final Combat combat;
+    public final Skills skills;
     public final Camera camera;
     public final NpcQuery npcs;
     public final ObjectQuery objects;
     public final GroundItemQuery groundItems;
     public final PlayerQuery players;
+    public final ItemQuery inventory;
+    public final Widgets widgets;
 
     public ClientContext(AbstractScript script) {
         this.script = script;
 
+        this.interact = new Interaction(this);
+        this.status = new Status();
+        this.movement = new Movement();
+        this.skills = new Skills();
         this.camera = new Camera();
         this.npcs = new NpcQuery();
         this.objects = new ObjectQuery();
         this.players = new PlayerQuery();
         this.groundItems = new GroundItemQuery();
+        this.inventory = new ItemQuery();
+        this.widgets = new Widgets();
+        this.combat = new Combat(this);
     }
 
     public AbstractScript script() {

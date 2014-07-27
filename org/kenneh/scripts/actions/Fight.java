@@ -4,6 +4,7 @@ import org.kenneh.script.Action;
 import org.kenneh.script.context.ClientContext;
 import org.kenneh.scripts.TestScript;
 import org.liquid.automation.osrs.api.util.Condition;
+import org.liquid.automation.osrs.api.util.Filter;
 import org.liquid.automation.osrs.api.util.Time;
 import org.liquid.automation.osrs.api.wrapper.NPC;
 
@@ -12,36 +13,50 @@ import org.liquid.automation.osrs.api.wrapper.NPC;
  */
 public class Fight extends Action {
 
-    private final TestScript script;
-
     public Fight(ClientContext ctx) {
         super(ctx);
-        script = (TestScript) ctx.script();
     }
+
+    private NPC target;
 
     @Override
     public boolean activate() {
-        return script.healthPercent() >= 25 && (ctx.players.local().getInteracting() == null || !ctx.players.local().isInCombat()) && !ctx.npcs.refresh().name("Goblin").within(10).isEmpty();
+        return ctx.combat.inCombat() && ctx.combat.healthPercent() >= 25 && (target = getTarget()) != null;
     }
 
     @Override
     public void execute() {
-        final NPC goblin = ctx.npcs.nearest().poll();
-        if(goblin != null) {
-            if(!goblin.isOnScreen()) {
-                log.info("Turning camera towards NPC");
-                ctx.camera.turnTo(goblin);
-            } else {
-                log.info("Attacking NPC");
-                if(goblin.interact("Attack", goblin.getName())) {
-                    Time.sleep(new Condition() {
-                        @Override
-                        public boolean active() {
-                            return ctx.players.local().getInteracting() != null;
-                        }
-                    }, 20, 50);
-                }
+        if(!target.isOnScreen()) {
+            ctx.camera.turnTo(target);
+            ctx.movement.walk(target);
+        } else {
+            if(target.interact("Attack", target.getName())) {
+                Time.sleep(new Condition() {
+                    @Override
+                    public boolean active() {
+                        return ctx.combat.inCombat();
+                    }
+                }, 200, 5);
             }
         }
     }
+
+    public NPC getTarget() {
+        return !ctx.npcs.refresh().filter(interacting).isEmpty()
+                ? ctx.npcs.nearest().poll() : ctx.npcs.refresh().name("Chicken").within(15).filter(filter).nearest().poll();
+    }
+
+    public Filter<NPC> interacting = new Filter<NPC>() {
+        @Override
+        public boolean accept(NPC npc) {
+            return npc.getInteracting() != null && npc.getInteracting().equals(ctx.players.local());
+        }
+    };
+
+    public Filter<NPC> filter = new Filter<NPC>() {
+        @Override
+        public boolean accept(NPC npc) {
+            return npc.getInteracting() != null && !npc.isInCombat() && npc.getAnimation() == -1;
+        }
+    };
 }

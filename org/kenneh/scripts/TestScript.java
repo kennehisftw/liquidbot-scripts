@@ -28,13 +28,9 @@ public class TestScript extends ActionScript implements PaintListener {
         // TODO add queries for widgets and Inventory items
     }
 
-    public int healthPercent() {
-        return (Integer.parseInt(Widgets.get(548).getChild(77).getText()) * 100) / Skills.getRealLevel(Skills.Skill.CONSTITUTION);
-    }
-
     @Override
     public void render(Graphics graphics) {
         graphics.drawString("Camera angle: "+ ctx.camera.angle(), 5, 100);
-        graphics.drawString("Health percent: "+ healthPercent(), 5, 115);
+        graphics.drawString("Health percent: "+ ctx.combat.healthPercent(), 5, 115);
     }
 }

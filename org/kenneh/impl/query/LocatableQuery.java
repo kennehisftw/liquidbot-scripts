@@ -2,6 +2,7 @@ package org.kenneh.impl.query;
 
 import org.liquid.automation.osrs.api.util.Filter;
 import org.liquid.automation.osrs.api.util.Locatable;
+import org.liquid.automation.osrs.api.wrapper.Area;
 
 import java.util.Comparator;
 
@@ -19,6 +20,15 @@ public abstract class LocatableQuery<Q extends LocatableQuery, E extends Locatab
             @Override
             public boolean accept(E e) {
                 return e.distanceTo() <= radius;
+            }
+        });
+    }
+
+    public Q within(Area area) {
+        return filter(new Filter<E>() {
+            @Override
+            public boolean accept(E e) {
+                return area.contains(e);
             }
         });
     }

@@ -16,7 +16,7 @@ public class ItemQuery extends AbstractQuery<ItemQuery, Item> {
         return Inventory.getAllItems();
     }
 
-    public ItemQuery name(String... names) {
+    public ItemQuery name(final String... names) {
         return filter(new Filter<Item>() {
             @Override
             public boolean accept(Item object) {
@@ -25,7 +25,7 @@ public class ItemQuery extends AbstractQuery<ItemQuery, Item> {
         });
     }
 
-    public ItemQuery id(int... ids) {
+    public ItemQuery id(final int... ids) {
         return filter(new Filter<Item>() {
             @Override
             public boolean accept(Item object) {

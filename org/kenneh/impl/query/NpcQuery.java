@@ -17,7 +17,7 @@ public class NpcQuery extends LocatableQuery<NpcQuery, NPC> {
         return NPCs.getAll();
     }
 
-    public NpcQuery name(String... names) {
+    public NpcQuery name(final String... names) {
         return filter(new Filter<NPC>() {
             @Override
             public boolean accept(NPC npc) {
@@ -26,7 +26,7 @@ public class NpcQuery extends LocatableQuery<NpcQuery, NPC> {
         });
     }
 
-    public NpcQuery id(int... ids) {
+    public NpcQuery id(final int... ids) {
         return filter(new Filter<NPC>() {
             @Override
             public boolean accept(NPC npc) {

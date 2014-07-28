@@ -16,7 +16,7 @@ public class GroundItemQuery extends LocatableQuery<GroundItemQuery, GroundItem>
         return GroundItems.getAll();
     }
 
-    public GroundItemQuery name(String... names) {
+    public GroundItemQuery name(final String... names) {
         return filter(new Filter<GroundItem>() {
             @Override
             public boolean accept(GroundItem object) {
@@ -25,7 +25,7 @@ public class GroundItemQuery extends LocatableQuery<GroundItemQuery, GroundItem>
         });
     }
 
-    public GroundItemQuery id(int... ids) {
+    public GroundItemQuery id(final int... ids) {
         return filter(new Filter<GroundItem>() {
             @Override
             public boolean accept(GroundItem object) {

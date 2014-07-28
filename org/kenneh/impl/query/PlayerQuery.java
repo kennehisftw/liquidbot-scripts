@@ -19,7 +19,7 @@ public class PlayerQuery extends LocatableQuery<PlayerQuery, Player> {
         return Players.getLocal();
     }
 
-    public PlayerQuery name(String... names) {
+    public PlayerQuery name(final String... names) {
         return filter(new Filter<Player>() {
             @Override
             public boolean accept(Player object) {

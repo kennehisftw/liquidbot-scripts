@@ -15,7 +15,7 @@ public class ObjectQuery extends LocatableQuery<ObjectQuery, GameObject> {
         return GameEntities.getAll();
     }
 
-    public ObjectQuery name(String... names) {
+    public ObjectQuery name(final String... names) {
         return filter(new Filter<GameObject>() {
             @Override
             public boolean accept(GameObject object) {
@@ -24,7 +24,7 @@ public class ObjectQuery extends LocatableQuery<ObjectQuery, GameObject> {
         });
     }
 
-    public ObjectQuery id(int... ids) {
+    public ObjectQuery id(final int... ids) {
         return filter(new Filter<GameObject>() {
             @Override
             public boolean accept(GameObject object) {

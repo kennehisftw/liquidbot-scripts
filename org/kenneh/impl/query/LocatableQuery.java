@@ -15,7 +15,7 @@ public abstract class LocatableQuery<Q extends LocatableQuery, E extends Locatab
         return sort(DISTANCE_SORT);
     }
 
-    public Q within(int radius) {
+    public Q within(final int radius) {
         return filter(new Filter<E>() {
             @Override
             public boolean accept(E e) {
@@ -24,7 +24,7 @@ public abstract class LocatableQuery<Q extends LocatableQuery, E extends Locatab
         });
     }
 
-    public Q within(Area area) {
+    public Q within(final Area area) {
         return filter(new Filter<E>() {
             @Override
             public boolean accept(E e) {

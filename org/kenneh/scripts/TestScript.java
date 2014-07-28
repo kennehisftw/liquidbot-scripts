@@ -1,12 +1,16 @@
 package org.kenneh.scripts;
 
+import org.kenneh.impl.query.GroundItemQuery;
+import org.kenneh.impl.query.NpcQuery;
 import org.kenneh.script.ActionScript;
 import org.kenneh.scripts.actions.Fight;
+import org.kenneh.scripts.actions.Loot;
 import org.liquid.automation.osrs.api.Manifest;
 import org.liquid.automation.osrs.api.SkillCategory;
 import org.liquid.automation.osrs.api.listeners.PaintListener;
 import org.liquid.automation.osrs.api.methods.data.Skills;
 import org.liquid.automation.osrs.api.methods.interactive.Widgets;
+import org.liquid.automation.osrs.api.wrapper.NPC;
 
 import java.awt.*;
 
@@ -24,8 +28,11 @@ public class TestScript extends ActionScript implements PaintListener {
     @Override
     public void start() {
         log.info("Script starting!");
-        add(new Fight(ctx));
-        // TODO add queries for widgets and Inventory items
+        add(new Fight(ctx), new Loot(ctx));
+    }
+
+    public GroundItemQuery groundItemQuery() {
+        return ctx.groundItems.refresh().name("Feather").within(15);
     }
 
     @Override

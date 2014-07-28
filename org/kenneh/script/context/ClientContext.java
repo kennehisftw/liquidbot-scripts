@@ -11,7 +11,6 @@ public class ClientContext {
 
     private final AbstractScript script;
 
-    public final Interaction interact;
     public final Status status;
     public final Movement movement;
     public final Combat combat;
@@ -27,7 +26,6 @@ public class ClientContext {
     public ClientContext(AbstractScript script) {
         this.script = script;
 
-        this.interact = new Interaction(this);
         this.status = new Status();
         this.movement = new Movement();
         this.skills = new Skills();

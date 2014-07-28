@@ -3,15 +3,12 @@ package org.kenneh.impl.query;
 import org.liquid.automation.osrs.api.util.Filter;
 import org.liquid.automation.osrs.api.util.Locatable;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Kenneth on 7/24/2014.
  */
-public abstract class AbstractQuery<Q extends AbstractQuery, E> {
+public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Iterable<E>{
 
     private final List<E> list = new LinkedList<>();
 
@@ -39,7 +36,7 @@ public abstract class AbstractQuery<Q extends AbstractQuery, E> {
     public Q filter(Filter<E> filter) {
         final List<E> clone = new LinkedList<>(list);
         for(E e : clone) {
-            if(!filter.accept(e)) {
+            if(e != null && !filter.accept(e)) {
                 list.remove(e);
             }
         }
@@ -59,4 +56,8 @@ public abstract class AbstractQuery<Q extends AbstractQuery, E> {
         return (Q) this;
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        return list.iterator();
+    }
 }

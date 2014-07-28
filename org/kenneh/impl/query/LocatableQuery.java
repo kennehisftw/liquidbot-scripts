@@ -36,7 +36,7 @@ public abstract class LocatableQuery<Q extends LocatableQuery, E extends Locatab
     private final Comparator<E> DISTANCE_SORT = new Comparator<E>() {
         @Override
         public int compare(Locatable o1, Locatable o2) {
-            return o2.distanceTo() - o1.distanceTo();
+            return o1.distanceTo() - o2.distanceTo();
         }
     };
 }

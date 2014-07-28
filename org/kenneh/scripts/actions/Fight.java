@@ -13,15 +13,18 @@ import org.liquid.automation.osrs.api.wrapper.NPC;
  */
 public class Fight extends Action {
 
+    private final TestScript script;
+
     public Fight(ClientContext ctx) {
         super(ctx);
+        this.script = (TestScript) ctx.script();
     }
 
     private NPC target;
 
     @Override
     public boolean activate() {
-        return ctx.combat.inCombat() && ctx.combat.healthPercent() >= 25 && (target = getTarget()) != null;
+        return !ctx.combat.inCombat() && ctx.combat.healthPercent() >= 25 && (target = getTarget()) != null && script.groundItemQuery().isEmpty();
     }
 
     @Override

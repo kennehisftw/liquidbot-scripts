@@ -21,7 +21,7 @@ public class NpcQuery extends LocatableQuery<NpcQuery, NPC> {
         return filter(new Filter<NPC>() {
             @Override
             public boolean accept(NPC npc) {
-                return Arrays.asList(names).contains(npc.getName());
+                return npc != null && Arrays.asList(names).contains(npc.getName());
             }
         });
     }
@@ -30,7 +30,7 @@ public class NpcQuery extends LocatableQuery<NpcQuery, NPC> {
         return filter(new Filter<NPC>() {
             @Override
             public boolean accept(NPC npc) {
-                return Arrays.asList(ids).contains(npc.getId());
+                return npc != null && Arrays.asList(ids).contains(npc.getId());
             }
         });
     }
